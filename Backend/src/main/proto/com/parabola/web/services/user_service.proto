@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package services;
+
+import "com/parabola/web/services/company.proto";
+
+option java_multiple_files = true;
+option java_package = "com.parabola.web.services";
+option java_outer_classname = "UserServiceProtos";
+
+
+service UserService {
+  rpc Signup(SignupRequest) returns (SignupResponse);
+  rpc GetCompanyInfo(GetCompanyInfoRequest) returns (GetCompanyInfoResponse);
+  rpc GetAllProjects(GetAllProjectsRequest) returns (GetAllProjectsResponse);
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
+  rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse);
+  rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse);
+}
+
+
+message SignupRequest {
+  Company company = 1;
+}
+
+message SignupResponse {}
+
+message GetCompanyInfoRequest {
+  string username = 1;
+}
+
+message GetCompanyInfoResponse {
+  Company company = 1;
+}
+
+message Project {
+  int32 id = 1;
+  string name = 2;
+}
+
+message GetAllProjectsRequest {
+  string username = 1;
+}
+
+message GetAllProjectsResponse {
+  repeated Project projects = 1;
+}
+
+message CreateProjectRequest {
+  string project_name = 1;
+  // the company that is creating the project
+  Company company = 2;
+}
+
+message CreateProjectResponse {
+  int32 project_id = 1;
+}
+
+message UpdateProjectRequest {
+  int32 project_id = 1;
+  string project_name = 2;
+}
+
+message UpdateProjectResponse {}
+
+message DeleteProjectRequest {
+  int32 project_id = 1;
+}
+
+message DeleteProjectResponse {}
